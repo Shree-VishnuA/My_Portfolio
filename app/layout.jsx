@@ -1,0 +1,42 @@
+import { Poppins } from "next/font/google";
+import "./globals.css";
+import ParticleField from "@/components/ParticleLayout";
+import Navbar from "@/components/Navbar";
+import { ThemeProvider } from "next-themes";
+
+const poppins = Poppins({
+  variable: "--font-sans",
+  subsets: ["latin"],
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+});
+
+export const metadata = {
+  title: "Vishnu | Full-Stack & AI Developer",
+  description:
+    "Portfolio of Vishnu — a Full-Stack and AI Developer specializing in React, Next.js, Node.js, and intelligent web applications.",
+  keywords: ["Full-Stack Developer", "AI Developer", "React", "Next.js", "Portfolio"],
+  authors: [{ name: "Vishnu" }],
+};
+
+export default function RootLayout({ children }) {
+  return (
+    <html lang="en" suppressHydrationWarning>
+      <body
+        className={`${poppins.variable} font-sans antialiased relative overflow-x-hidden`}
+      >
+        <ThemeProvider attribute="class">
+          {/* Background Layer */}
+          <div className="fixed inset-0 -z-10 opacity-60 pointer-events-none">
+            <ParticleField />
+          </div>
+
+          {/* Foreground Content */}
+          <div className=" content-layer relative z-10">
+            <Navbar />
+            {children}
+          </div>
+        </ThemeProvider>
+      </body>
+    </html>
+  );
+}
