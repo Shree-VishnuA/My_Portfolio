@@ -162,7 +162,7 @@ const projects = [
     icon: Film,
     color: "from-red-500/20 to-orange-600/20",
     textColor: "text-red-500",
-    image: "/projects/movieHunt.png"
+    image: "/projects/MovieHunt.png"
   },
   {
     id: 6,
@@ -192,7 +192,7 @@ const projects = [
     icon: CloudSun,
     color: "from-sky-500/20 to-indigo-600/20",
     textColor: "text-sky-500",
-    image: "/projects/weatherly.png"
+    image: "/projects/Weatherly.png"
   },
 ];
 
