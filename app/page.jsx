@@ -5,7 +5,6 @@ import { useEffect } from "react";
 import Homesection from "@/components/sections/Homesection";
 import Skillssection from "@/components/sections/Skillssection";
 import Projectsection from "@/components/sections/Projectsection";
-import Educationsection from "@/components/sections/Educationsection";
 import ContactSection from "@/components/sections/ContactSection";
 
 export default function Home() {
@@ -15,11 +14,11 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="w-full flex flex-col items-center">
+    <div className="w-full flex flex-col items-center overflow-x-hidden">
       <Homesection />
       <Skillssection />
       <Projectsection />
-      <Educationsection />
+      {/* <Educationsection /> */}
       <ContactSection />
     </div>
   );

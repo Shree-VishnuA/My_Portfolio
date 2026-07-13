@@ -18,26 +18,26 @@ const INFO_ITEMS = [
   {
     icon: MapPin,
     label: "Location",
-    value: "Chennai, India",
+    value: "Bangalore, India",
     href: null,
   },
   {
     icon: Mail,
     label: "Email",
-    value: "your.email@gmail.com",
-    href: "mailto:your.email@gmail.com",
+    value: "shreevishnu1746@gmail.com",
+    href: "mailto:shreevishnu1746@gmail.com",
   },
   {
     icon: GitBranch,
     label: "GitHub",
-    value: "github.com/yourusername",
-    href: "https://github.com/yourusername",
+    value: "github.com/Shree-VishnuA",
+    href: "https://github.com/Shree-VishnuA",
   },
   {
     icon: Link2,
     label: "LinkedIn",
-    value: "linkedin.com/in/yourusername",
-    href: "https://linkedin.com/in/yourusername",
+    value: "linkedin.com/in/shree-vishnu-a",
+    href: "https://www.linkedin.com/in/shree-vishnu-a-0170b1331/",
   },
 ];
 
@@ -215,10 +215,7 @@ export default function ContactSection() {
             transition={{ duration: 0.6 }}
             className="mb-14"
           >
-            <p className="text-xs font-bold uppercase tracking-widest text-cyan-600 dark:text-cyan-400 mb-3">
-              Get In Touch
-            </p>
-            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white leading-tight mb-4">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white leading-tight mb-4">
               Let's Build Something{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 to-blue-600 dark:from-cyan-400 dark:to-blue-400">
                 Together.
@@ -307,13 +304,13 @@ export default function ContactSection() {
 
       {/* ── Footer ───────────────────────────────────────────────────────── */}
       <footer className="relative w-full border-t border-gray-100 dark:border-white/6 py-8 px-6 md:px-12 lg:px-24">
-        <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-gray-400 dark:text-gray-600">
+        <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-sm text-gray-400 dark:text-gray-600 text-center">
           <p>
             © {new Date().getFullYear()}{" "}
             <span className="font-semibold text-gray-600 dark:text-gray-400">Vishnu</span>
             . All rights reserved.
           </p>
-          <p className="flex items-center gap-1.5">
+          <p className="flex flex-wrap items-center justify-center gap-1.5">
             Built with{" "}
             <span className="font-medium text-gray-500 dark:text-gray-500">Next.js</span>
             {" "}·{" "}

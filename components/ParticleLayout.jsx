@@ -54,11 +54,13 @@ export default function ParticleField() {
     let h = (canvas.height = window.innerHeight);
 
     const darkColors = ["#0A0A0B", "#141415", "#1A1A1C", "#202023"];
-    const lightColors = ["#F2F2F3", "#E8E9EB", "#E0E0E0", "#E4E4E7"];
+    const lightColors = ["#FFFFFF","#FCFCFD","#FAFAFB","#F9F9FA","#F8F9FA","#F7F8FA","#F4F6F9","#F2F5F8",];
     const getColors = () => (theme === "dark" ? darkColors : lightColors);
 
     const getBorderColor = () =>
-      theme === "dark" ? "rgba(0, 0, 0, 0.65)" : "rgba(0, 0, 0, 0.16)";
+      theme === "dark"
+  ? "rgba(0, 0, 0, 0.65)"
+  : "rgba(0, 0, 0, 0.06)";
 
     const createPolygon = (size) => {
       const sides = Math.floor(Math.random() * 3) + 5;

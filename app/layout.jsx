@@ -3,6 +3,7 @@ import "./globals.css";
 import ParticleField from "@/components/ParticleLayout";
 import Navbar from "@/components/Navbar";
 import { ThemeProvider } from "next-themes";
+import PageReveal from "@/components/PageReveal";
 
 const poppins = Poppins({
   variable: "--font-sans",
@@ -13,7 +14,7 @@ const poppins = Poppins({
 export const metadata = {
   title: "Vishnu | Full-Stack & AI Developer",
   description:
-    "Portfolio of Vishnu — a Full-Stack and AI Developer specializing in React, Next.js, Node.js, and intelligent web applications.",
+    "Portfolio of Vishnu - a Full-Stack and AI Developer specializing in React, Next.js, Node.js, and intelligent web applications.",
   keywords: ["Full-Stack Developer", "AI Developer", "React", "Next.js", "Portfolio"],
   authors: [{ name: "Vishnu" }],
 };
@@ -24,17 +25,19 @@ export default function RootLayout({ children }) {
       <body
         className={`${poppins.variable} font-sans antialiased relative overflow-x-hidden`}
       >
-        <ThemeProvider attribute="class">
+        <ThemeProvider attribute="class" defaultTheme="dark">
           {/* Background Layer */}
           <div className="fixed inset-0 -z-10 opacity-60 pointer-events-none">
             <ParticleField />
           </div>
 
-          {/* Foreground Content */}
-          <div className=" content-layer relative z-10">
-            <Navbar />
-            {children}
-          </div>
+          {/* Page reveal overlay + Foreground Content */}
+          <PageReveal>
+            <div className="content-layer relative z-10">
+              <Navbar />
+              {children}
+            </div>
+          </PageReveal>
         </ThemeProvider>
       </body>
     </html>
