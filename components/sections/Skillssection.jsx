@@ -60,15 +60,15 @@ export default function Skillssection() {
         className="relative w-full"
       >
         {/* ── Sticky viewport ─────────────────────────────────────────── */}
-        <div className="sticky top-14 sm:top-4 lg:top-8 w-full overflow-x-hidden flex items-center min-h-[calc(100dvh-3.5rem)]">
-          <div className="w-full max-w-7xl mx-auto px-6 md:px-12 lg:px-24 flex flex-col lg:flex-row items-center gap-8 lg:gap-20 py-8 lg:py-0">
+        <div className="sticky top-0 sm:top-4 lg:top-8 w-full overflow-x-hidden flex items-center min-h-[calc(100dvh-4rem)]">
+          <div className="w-full max-w-7xl mx-auto px-6 md:px-12 lg:px-24 flex flex-col lg:flex-row items-center gap-12 lg:gap-20 py-6 lg:py-0">
 
             {/* ── Left Column: Title + category progress bars ─────────── */}
             <div className="w-full lg:w-1/2 flex flex-col justify-center">
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-2 bg-clip-text text-transparent bg-linear-to-r from-gray-900 to-gray-500 dark:from-white dark:to-gray-400">
+              <h2 className="text-4xl sm:text-5xl font-bold mb-2 bg-clip-text text-transparent bg-linear-to-r from-gray-900 to-gray-500 dark:from-white dark:to-gray-400">
                 Skills
               </h2>
-              <p className="text-base sm:text-lg text-gray-500 dark:text-gray-400 mb-5 sm:mb-8">
+              <p className="text-lg text-gray-500 dark:text-gray-400 mb-6 sm:mb-8">
                 Scroll to explore my tech stack.
               </p>
 

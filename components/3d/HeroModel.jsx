@@ -130,7 +130,7 @@ export default function HeroModel() {
   return (
     <div
       ref={containerRef}
-      className="relative shrink-0 w-48 h-48 sm:w-72 sm:h-72 lg:w-96 lg:h-96 order-1 lg:order-2 cursor-pointer select-none group"
+      className="relative shrink-0 w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96 order-1 lg:order-2 cursor-pointer select-none group"
     >
       {/* Glowing radial backdrop */}
       <div className="absolute inset-0 rounded-full bg-linear-to-br from-cyan-500/20 via-blue-600/15 to-purple-600/10 blur-3xl pointer-events-none scale-110 transition-opacity duration-500 group-hover:opacity-100 opacity-80" />

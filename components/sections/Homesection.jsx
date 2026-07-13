@@ -57,14 +57,14 @@ export default function Homesection() {
   return (
     <section
       id="home"
-      className="relative w-full min-h-[100svh] flex items-center overflow-hidden"
+      className="relative w-full min-h-screen flex items-center overflow-hidden"
     >
       {/* Subtle grid overlay */}
       <div className="absolute inset-0 bg-[linear-linear(rgba(6,182,212,0.03)_1px,transparent_1px),linear-linear(90deg,rgba(6,182,212,0.03)_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-linear(ellipse_80%_60%_at_50%_50%,black,transparent)] pointer-events-none" />
 
-      {/* ── HERO CONTENT ── */}
-      <div className="relative z-10 w-full px-6 md:px-12 lg:px-24 pt-20 pb-12 lg:pt-8 lg:pb-16">
-        <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-8 lg:gap-20">
+      {/* ── HERO CONTENT — always fully visible so the mask hole reveals it ── */}
+      <div className="relative z-10 w-full px-6 md:px-12 lg:px-24  pb-16">
+        <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
 
           {/* Left: Text */}
           <div className="flex-1 flex flex-col items-center lg:items-start text-center lg:text-left order-2 lg:order-1">
@@ -86,7 +86,7 @@ export default function Homesection() {
 
             {/* Bio */}
             <p className="text-base md:text-lg text-gray-600 dark:text-gray-400 leading-relaxed max-w-lg mb-8">
-              I build intelligent web experiences - from pixel-perfect frontends to
+              I build intelligent web experiences — from pixel-perfect frontends to
               AI-powered backends. Passionate about crafting software that solves
               real problems.
             </p>
