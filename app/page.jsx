@@ -7,6 +7,7 @@ import Skillssection from "@/components/sections/Skillssection";
 import Projectsection from "@/components/sections/Projectsection";
 // import Educationsection from "@/components/sections/Educationsection";
 import ContactSection from "@/components/sections/ContactSection";
+import Footer from "@/components/Footer";
 
 export default function Home() {
   useEffect(() => {
@@ -21,6 +22,7 @@ export default function Home() {
       <Projectsection />
       {/* <Educationsection /> */}
       <ContactSection />
+      <Footer />
     </div>
   );
 }

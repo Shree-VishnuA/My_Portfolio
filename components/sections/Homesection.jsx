@@ -8,7 +8,6 @@ import HeroModel from "@/components/3d/HeroModel";
 // ── Config ──────────────────────────────────────────────────────────────────
 const ROLES = [
   "Full-Stack Developer",
-  "AI Application Builder",
   "React & Next.js Engineer",
   "Problem Solver",
 ];
@@ -20,7 +19,7 @@ const SOCIALS = [
 
 // ── Typewriter ───────────────────────────────────────────────────────────────
 function TypewriterText({ roles }) {
-  const [index, setIndex]         = useState(0);
+  const [index, setIndex]         = useState(0);  
   const [displayed, setDisplayed] = useState("");
   const [deleting, setDeleting]   = useState(false);
   const [paused, setPaused]       = useState(false);
@@ -41,7 +40,7 @@ function TypewriterText({ roles }) {
   }, [displayed, deleting, paused, index, roles]);
 
   return (
-    <span className="text-transparent bg-clip-text bg-linear-to-r from-cyan-600 to-blue-600 dark:from-cyan-400 dark:to-blue-400">
+    <span className="text-transparent bg-clip-text bg-linear-to-r from-cyan-600 to-cyan-600 dark:from-cyan-400 dark:to-cyan-400">
       {displayed}
       <span className="animate-pulse text-cyan-500 dark:text-cyan-400">|</span>
     </span>
@@ -106,7 +105,7 @@ export default function Homesection() {
               <motion.a
                 whileHover={{ scale: 1.04 }}
                 whileTap={{ scale: 0.96 }}
-                href="/resume.pdf"
+                href="/vishnu-resume.pdf"
                 download
                 className="group inline-flex items-center justify-center gap-2.5 px-7 py-3.5 border border-gray-200 dark:border-white/10 hover:border-cyan-500/50 dark:hover:border-cyan-400/50 text-gray-700 dark:text-gray-300 hover:text-cyan-600 dark:hover:text-cyan-400 rounded-xl font-semibold text-sm backdrop-blur-sm transition-all duration-300"
               >

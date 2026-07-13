@@ -1,331 +1,296 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import {
   Mail,
-  GitBranch,
-  Link2,
-  MapPin,
+  Clock,
   Send,
+  Heart,
   ArrowRight,
-  CheckCircle,
-  AlertCircle,
 } from "lucide-react";
 
-// ── Contact info chips ──────────────────────────────────────────────────────
-const INFO_ITEMS = [
-  {
-    icon: MapPin,
-    label: "Location",
-    value: "Chennai, India",
-    href: null,
-  },
-  {
-    icon: Mail,
-    label: "Email",
-    value: "your.email@gmail.com",
-    href: "mailto:your.email@gmail.com",
-  },
-  {
-    icon: GitBranch,
-    label: "GitHub",
-    value: "github.com/yourusername",
-    href: "https://github.com/yourusername",
-  },
-  {
-    icon: Link2,
-    label: "LinkedIn",
-    value: "linkedin.com/in/yourusername",
-    href: "https://linkedin.com/in/yourusername",
-  },
-];
+// Inline SVG components
+function GithubIcon({ className }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="currentColor" stroke="none">
+      <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.6.113.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z" />
+    </svg>
+  );
+}
 
-// ── Animation variants ──────────────────────────────────────────────────────
-const cardVariants = {
-  hidden: { opacity: 0, y: 24 },
-  visible: (i) => ({
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.5, delay: i * 0.1, ease: "easeOut" },
-  }),
-};
+function LinkedinIcon({ className }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="currentColor" stroke="none">
+      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+    </svg>
+  );
+}
 
-// ── Contact form ────────────────────────────────────────────────────────────
-function ContactForm() {
-  const [form, setForm]   = useState({ name: "", email: "", message: "" });
-  const [status, setStatus] = useState("idle"); // idle | sending | success | error
-  const [errors, setErrors] = useState({});
+function LiveClock() {
+  const [timeState, setTimeState] = useState({
+    time: null,
+    status: "Probably building something cool.",
+  });
 
-  const validate = () => {
-    const e = {};
-    if (!form.name.trim())    e.name    = "Name is required";
-    if (!form.email.trim())   e.email   = "Email is required";
-    else if (!/\S+@\S+\.\S+/.test(form.email)) e.email = "Enter a valid email";
-    if (!form.message.trim()) e.message = "Message is required";
-    return e;
-  };
+  useEffect(() => {
+    const update = () => {
+      const now = new Date();
 
-  const handleChange = (e) => {
-    setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
-    if (errors[e.target.name]) {
-      setErrors((er) => ({ ...er, [e.target.name]: null }));
-    }
-  };
+      const timeString = now.toLocaleTimeString("en-US", {
+        timeZone: "Asia/Kolkata",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: true,
+      });
+
+      const formatter = new Intl.DateTimeFormat("en-US", {
+        timeZone: "Asia/Kolkata",
+        hour: "numeric",
+        hourCycle: "h23",
+      });
+
+      const hour = parseInt(formatter.format(now), 10);
+
+      let status = "";
+
+      if (hour >= 0 && hour < 6) {
+        status = "Hopefully asleep... unless a bug won.";
+      } else if (hour >= 6 && hour < 9) {
+        status = "Getting ready for classes and planning the day.";
+      } else if (hour >= 9 && hour < 13) {
+        status = "Probably in class or pretending not to debug during lectures.";
+      } else if (hour >= 13 && hour < 17) {
+        status = "Learning AI, coding, or working on assignments.";
+      } else if (hour >= 17 && hour < 20) {
+        status = "Building projects, fixing bugs, or playing a game of chess.";
+      } else if (hour >= 20 && hour < 23) {
+        status = "Most likely deep into side projects and chasing that 'one last feature'.";
+      } else {
+        status = "Late-night coding. Sleep can negotiate later.";
+      }
+
+      setTimeState({
+        time: timeString,
+        status,
+      });
+    };
+
+    update();
+    const interval = setInterval(update, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div className="flex flex-col h-full justify-center">
+      <div className="flex items-center gap-2 mb-2">
+        <Clock className="w-5 h-5 text-cyan-600 dark:text-cyan-400" />
+        <span className="text-xs font-bold tracking-widest text-gray-400 uppercase">
+          Local Time
+        </span>
+      </div>
+
+      <div className="text-3xl sm:text-4xl font-black text-gray-900 dark:text-white mb-2 tracking-tight">
+        {timeState.time ?? "..."}
+      </div>
+
+      <p className="text-sm font-medium text-gray-500 dark:text-gray-400">
+        Bangalore, India.
+      </p>
+      <div className="text-sm font-medium text-gray-500 dark:text-gray-400">
+        {timeState.status}
+      </div>
+    </div>
+  );
+}
+
+// Compliment Form Component
+function ComplimentForm() {
+  const [compliment, setCompliment] = useState("");
+  const [status, setStatus] = useState("idle");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const errs = validate();
-    if (Object.keys(errs).length) { setErrors(errs); return; }
-
+    if (!compliment.trim()) return;
     setStatus("sending");
-    try {
-      // Using Formspree — replace YOUR_FORM_ID with your actual Formspree ID
-      const res = await fetch("https://formspree.io/f/YOUR_FORM_ID", {
-        method: "POST",
-        headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify(form),
-      });
-      if (res.ok) {
-        setStatus("success");
-        setForm({ name: "", email: "", message: "" });
-      } else {
-        setStatus("error");
-      }
-    } catch {
-      setStatus("error");
-    }
+
+    // Using Formspree or fake sending for demonstration
+    // If you have a Formspree ID, put it here:
+    // fetch("https://formspree.io/f/YOUR_FORM_ID", { ... })
+    setTimeout(() => {
+      setStatus("success");
+      setCompliment("");
+      setTimeout(() => setStatus("idle"), 3000);
+    }, 1000);
   };
 
-  const inputClass = (field) =>
-    `w-full px-4 py-3 rounded-xl text-sm bg-white/60 dark:bg-white/5 border ${
-      errors[field]
-        ? "border-rose-400/60"
-        : "border-gray-200 dark:border-white/10"
-    } focus:outline-none focus:border-cyan-500/60 dark:focus:border-cyan-400/60 focus:ring-2 focus:ring-cyan-500/10 text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-600 backdrop-blur-sm transition-all duration-200`;
-
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-4" noValidate>
-      {/* Name */}
-      <div>
+    <div className="flex flex-col md:flex-row items-center justify-between w-full h-full gap-6">
+      <div className="flex items-center gap-4">
+        <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-rose-500/20 to-orange-500/20 border border-rose-500/20 flex items-center justify-center flex-shrink-0 shadow-sm">
+          <Heart className="w-6 h-6 text-rose-500 fill-rose-500/20" />
+        </div>
+        <div>
+          <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-1">
+            Send an anonymous compliment
+          </h3>
+          <p className="text-sm font-medium text-gray-500">
+            Make my day with a kind word.
+          </p>
+        </div>
+      </div>
+      <form onSubmit={handleSubmit} className="relative w-full md:w-96 flex-shrink-0">
         <input
           type="text"
-          name="name"
-          id="contact-name"
-          placeholder="Your name"
-          value={form.name}
-          onChange={handleChange}
-          className={inputClass("name")}
-          disabled={status === "sending" || status === "success"}
+          value={compliment}
+          onChange={(e) => setCompliment(e.target.value)}
+          disabled={status !== "idle"}
+          placeholder="You are awesome..."
+          className="w-full px-5 py-4 pr-14 rounded-2xl text-sm bg-white/50 dark:bg-black/20 border border-gray-200 dark:border-white/10 focus:outline-none focus:border-rose-400/60 focus:ring-4 focus:ring-rose-500/10 text-gray-900 dark:text-white placeholder:text-gray-400 transition-all duration-200 shadow-sm"
         />
-        {errors.name && (
-          <p className="mt-1 text-xs text-rose-500">{errors.name}</p>
-        )}
-      </div>
-
-      {/* Email */}
-      <div>
-        <input
-          type="email"
-          name="email"
-          id="contact-email"
-          placeholder="your@email.com"
-          value={form.email}
-          onChange={handleChange}
-          className={inputClass("email")}
-          disabled={status === "sending" || status === "success"}
-        />
-        {errors.email && (
-          <p className="mt-1 text-xs text-rose-500">{errors.email}</p>
-        )}
-      </div>
-
-      {/* Message */}
-      <div>
-        <textarea
-          name="message"
-          id="contact-message"
-          placeholder="Tell me about your project or just say hi..."
-          value={form.message}
-          onChange={handleChange}
-          rows={5}
-          className={`${inputClass("message")} resize-none`}
-          disabled={status === "sending" || status === "success"}
-        />
-        {errors.message && (
-          <p className="mt-1 text-xs text-rose-500">{errors.message}</p>
-        )}
-      </div>
-
-      {/* Submit */}
-      <motion.button
-        type="submit"
-        whileHover={status !== "sending" && status !== "success" ? { scale: 1.02 } : {}}
-        whileTap={status !== "sending" && status !== "success" ? { scale: 0.97 } : {}}
-        disabled={status === "sending" || status === "success"}
-        className="group relative w-full flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl font-semibold text-sm text-white bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 disabled:opacity-70 disabled:cursor-not-allowed shadow-lg shadow-cyan-500/20 transition-all duration-300"
-      >
-        {status === "sending" ? (
-          <>
-            <svg className="w-4 h-4 animate-spin" viewBox="0 0 24 24" fill="none">
-              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
-            </svg>
-            Sending…
-          </>
-        ) : status === "success" ? (
-          <>
-            <CheckCircle className="w-4 h-4" />
-            Message Sent!
-          </>
-        ) : (
-          <>
-            Send Message
-            <Send className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200" />
-          </>
-        )}
-      </motion.button>
-
-      {/* Error feedback */}
-      {status === "error" && (
-        <p className="flex items-center gap-1.5 text-xs text-rose-500 text-center justify-center">
-          <AlertCircle className="w-3.5 h-3.5" />
-          Something went wrong. Please email me directly.
-        </p>
-      )}
-    </form>
+        <button
+          type="submit"
+          disabled={status !== "idle" || !compliment.trim()}
+          className="absolute right-2 top-1/2 -translate-y-1/2 p-2.5 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-xl hover:scale-105 active:scale-95 disabled:opacity-50 disabled:hover:scale-100 transition-all duration-200 shadow-md"
+        >
+          {status === "success" ? (
+            <Heart className="w-4 h-4 fill-current" />
+          ) : (
+            <Send className="w-4 h-4" />
+          )}
+        </button>
+      </form>
+    </div>
   );
 }
 
 // ── Main Section ────────────────────────────────────────────────────────────
 export default function ContactSection() {
+  const bentoClass = "relative overflow-hidden rounded-3xl border border-gray-200 dark:border-white/8 bg-white/60 dark:bg-white/4 backdrop-blur-md hover:border-cyan-500/30 dark:hover:border-cyan-400/30 transition-colors duration-300 shadow-sm hover:shadow-md";
+
   return (
-    <>
-      <section id="contact" className="relative w-full py-24 px-6 md:px-12 lg:px-24 overflow-hidden">
-        {/* Background glow */}
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-cyan-500/5 dark:bg-cyan-500/8 blur-3xl rounded-full pointer-events-none" />
+    <section id="contact" className="relative w-full py-24 px-6 md:px-12 lg:px-24 overflow-hidden">
+      {/* Background glow */}
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-cyan-500/10 dark:bg-cyan-500/10 blur-[120px] rounded-full pointer-events-none" />
 
-        <div className="relative z-10 max-w-7xl mx-auto">
+      <div className="relative z-10 max-w-5xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.6 }}
+          className="mb-16 text-center"
+        >
+          <h2 className="text-4xl sm:text-5xl font-black text-gray-900 dark:text-white leading-tight mb-4 tracking-tight">
+            Let's Build Something{" "}
+            <span className="text-transparent bg-clip-text bg-cyan-500">
+              Together.
+            </span>
+          </h2>
+          <p className="text-lg font-medium text-gray-500 dark:text-gray-400">
+            Reach out if you're looking for a developer, have a question, or just want to connect.
+          </p>
+        </motion.div>
 
-          {/* Section header */}
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.6 }}
-            className="mb-14"
+        {/* Bento Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 sm:gap-6 auto-rows-min md:auto-rows-[200px]">
+
+          {/* 1. Large CTA Tile (spans 2 rows, 2 cols) */}
+          <motion.a
+            href="mailto:shreevishnu1746@gmail.com"
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            whileHover={{ scale: 0.98 }}
+            className={`md:col-span-2 md:row-span-2 flex flex-col justify-between group p-8 sm:p-10 ${bentoClass} bg-linear-to-br from-cyan-300/10 to-cyan-700/10 dark:from-cyan-300/5 dark:to-cyan-500/5 hover:from-cyan-500/20 hover:to-cyan-600/20 border-cyan-500/20`}
           >
-            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white leading-tight mb-4">
-              Let's Build Something{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 to-blue-600 dark:from-cyan-400 dark:to-blue-400">
-                Together.
-              </span>
-            </h2>
-            <p className="text-lg text-gray-500 dark:text-gray-400 max-w-xl">
-              I'm currently available for freelance work, full-time roles, and
-              interesting collaborations. My inbox is always open.
-            </p>
-          </motion.div>
-
-          {/* Two-column layout */}
-          <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-12">
-
-            {/* ── Left: Contact Info ────────────────────────────────────── */}
-            <div className="lg:col-span-2 flex flex-col gap-4">
-              {INFO_ITEMS.map((item, i) => {
-                const Icon = item.icon;
-                const content = (
-                  <motion.div
-                    key={item.label}
-                    custom={i}
-                    variants={cardVariants}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true, margin: "-40px" }}
-                    className="group flex items-center gap-4 p-4 rounded-2xl border border-gray-200 dark:border-white/8 bg-white/60 dark:bg-white/4 backdrop-blur-sm hover:border-cyan-500/30 hover:shadow-sm dark:hover:shadow-black/20 transition-all duration-300"
-                  >
-                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500/15 to-blue-600/15 border border-cyan-500/20 flex items-center justify-center flex-shrink-0">
-                      <Icon className="w-4 h-4 text-cyan-600 dark:text-cyan-400" />
-                    </div>
-                    <div className="min-w-0">
-                      <p className="text-[10px] font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500 mb-0.5">
-                        {item.label}
-                      </p>
-                      <p className="text-sm font-medium text-gray-700 dark:text-gray-300 truncate group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors duration-200">
-                        {item.value}
-                      </p>
-                    </div>
-                    {item.href && (
-                      <ArrowRight className="w-3.5 h-3.5 text-gray-300 dark:text-gray-600 group-hover:text-cyan-500 group-hover:translate-x-0.5 flex-shrink-0 ml-auto transition-all duration-200" />
-                    )}
-                  </motion.div>
-                );
-
-                return item.href ? (
-                  <a key={item.label} href={item.href} target="_blank" rel="noopener noreferrer">
-                    {content}
-                  </a>
-                ) : (
-                  <div key={item.label}>{content}</div>
-                );
-              })}
-
-              {/* Response time note */}
-              <motion.p
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.5, duration: 0.5 }}
-                className="text-xs text-gray-400 dark:text-gray-600 mt-2 pl-1"
-              >
-                ⚡ Typically respond within 24 hours
-              </motion.p>
+            <div className="absolute bottom-0 right-0 p-8 opacity-10 dark:opacity-20 group-hover:opacity-30 dark:group-hover:opacity-40 transition-all duration-500 group-hover:scale-110 group-hover:-rotate-6 transform origin-center">
+              <Mail className="w-40 h-40 text-cyan-600 dark:text-cyan-400" />
             </div>
 
-            {/* ── Right: Contact Form ───────────────────────────────────── */}
-            <motion.div
-              initial={{ opacity: 0, y: 28 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.6, delay: 0.15 }}
-              className="lg:col-span-3 p-6 sm:p-8 rounded-2xl border border-gray-200 dark:border-white/8 bg-white/60 dark:bg-white/4 backdrop-blur-sm"
-            >
-              <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-1">
-                Send a Message
-              </h3>
-              <p className="text-sm text-gray-500 dark:text-gray-500 mb-6">
-                Fill out the form and I'll get back to you shortly.
-              </p>
-              <ContactForm />
-            </motion.div>
-          </div>
-        </div>
-      </section>
+            <div className="relative z-10 mt-2">
 
-      {/* ── Footer ───────────────────────────────────────────────────────── */}
-      <footer className="relative w-full border-t border-gray-100 dark:border-white/6 py-8 px-6 md:px-12 lg:px-24">
-        <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-gray-400 dark:text-gray-600">
-          <p>
-            © {new Date().getFullYear()}{" "}
-            <span className="font-semibold text-gray-600 dark:text-gray-400">Vishnu</span>
-            . All rights reserved.
-          </p>
-          <p className="flex items-center gap-1.5">
-            Built with{" "}
-            <span className="font-medium text-gray-500 dark:text-gray-500">Next.js</span>
-            {" "}·{" "}
-            <span className="font-medium text-gray-500 dark:text-gray-500">Framer Motion</span>
-            {" "}·{" "}
-            <span className="font-medium text-gray-500 dark:text-gray-500">Tailwind CSS</span>
-          </p>
-          <button
-            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            className="flex items-center gap-1.5 hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors duration-200 cursor-pointer"
+              <h3 className="text-3xl sm:text-4xl font-black text-gray-900 dark:text-white mb-4 tracking-tight leading-tight">
+                Have a project<br />in mind?
+              </h3>
+              <p className="text-base font-medium text-gray-600 dark:text-gray-400 max-w-sm mb-12">
+                I'm always open to discussing product design work, new projects, or partnership opportunities.
+              </p>
+            </div>
+
+            <div className="relative z-10 flex items-center gap-2 text-cyan-700 dark:text-cyan-400 font-bold tracking-wide group-hover:gap-4 transition-all">
+              <span>Shoot me an email</span>
+              <ArrowRight className="w-5 h-5" />
+            </div>
+          </motion.a>
+
+          {/* 2. GitHub Tile (1 row, 1 col) */}
+          <motion.a
+            href="https://github.com/Shree-VishnuA"
+            target="_blank"
+            rel="noopener noreferrer"
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className={`flex flex-col items-center justify-center text-center group p-8 min-h-[200px] ${bentoClass}`}
           >
-            Back to top ↑
-          </button>
+            <div className="absolute inset-0 bg-gray-900 dark:bg-white scale-0 group-hover:scale-100 transition-transform duration-500 rounded-3xl origin-center ease-out" />
+            <div className="relative z-10 flex flex-col items-center">
+              <GithubIcon className="w-12 h-12 text-gray-700 dark:text-gray-300 group-hover:text-white dark:group-hover:text-gray-900 mb-4 transition-colors duration-500" />
+              <span className="font-bold tracking-wide text-gray-900 dark:text-white group-hover:text-white dark:group-hover:text-gray-900 transition-colors duration-500">
+                GitHub
+              </span>
+            </div>
+          </motion.a>
+
+          {/* 3. LinkedIn Tile (1 row, 1 col) */}
+          <motion.a
+            href="https://www.linkedin.com/in/shree-vishnu-a-0170b1331/"
+            target="_blank"
+            rel="noopener noreferrer"
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className={`flex flex-col items-center justify-center text-center group p-8 min-h-[200px] ${bentoClass}`}
+          >
+            <div className="absolute inset-0 bg-[#0A66C2] scale-0 group-hover:scale-100 transition-transform duration-500 rounded-3xl origin-center ease-out" />
+            <div className="relative z-10 flex flex-col items-center">
+              <LinkedinIcon className="w-12 h-12 text-gray-700 dark:text-gray-300 group-hover:text-white dark:group-hover:text-gray-900 mb-4 transition-colors duration-500" />
+              <span className="font-bold tracking-wide text-gray-900 dark:text-white group-hover:text-white transition-colors duration-500">
+                LinkedIn
+              </span>
+            </div>
+          </motion.a>
+
+          {/* 4. Live Clock Tile (1 row, 2 cols) */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className={`md:col-span-2 p-8 sm:p-10 min-h-[200px] ${bentoClass}`}
+          >
+            <LiveClock />
+          </motion.div>
+
+          {/* 5. Fun / Compliment Form Tile (1 row, spans all 4 cols) */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            className={`md:col-span-4 p-8 sm:p-10 ${bentoClass} flex items-center justify-center`}
+          >
+            <ComplimentForm />
+          </motion.div>
+
         </div>
-      </footer>
-    </>
+      </div>
+    </section>
   );
 }

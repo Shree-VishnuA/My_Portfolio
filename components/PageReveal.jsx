@@ -78,6 +78,17 @@ export default function PageReveal({ children }) {
     return () => clearTimeout(t);
   }, []);
 
+  useEffect(() => {
+    if (!overlayGone) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [overlayGone]);
+
   return (
     <>
       {/* Render children immediately so the page is ready underneath */}

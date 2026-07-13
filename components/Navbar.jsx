@@ -10,7 +10,6 @@ const Navbar = () => {
     { title: "Home",      link: "#home",      icon: House },
     { title: "Skills",    link: "#skills",    icon: Hammer },
     { title: "Projects",  link: "#projects",  icon: BriefcaseBusiness },
-    { title: "Education", link: "#education", icon: GraduationCap },
     { title: "Contact",   link: "#contact",   icon: Phone },
   ];
 
