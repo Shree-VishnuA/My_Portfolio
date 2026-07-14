@@ -81,7 +81,7 @@ export default function ParticleField() {
         const r = Math.random();
         const baseSize = r * r * 30 + 5;
         const size = baseSize * particleSize;
-        const shapeType = Math.random() < 0.7 ? "polygon" : "circle";
+        const shapeType = "circle";
         return {
           x: Math.random() * w,
           y: Math.random() * h,
