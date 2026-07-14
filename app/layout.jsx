@@ -12,11 +12,11 @@ const poppins = Poppins({
 });
 
 export const metadata = {
-  title: "Vishnu | Full-Stack & AI Developer",
+  title: "Vishnu | Full-Stack Developer",
   description:
-    "Portfolio of Vishnu - a Full-Stack and AI Developer specializing in React, Next.js, Node.js, and intelligent web applications.",
-  keywords: ["Full-Stack Developer", "AI Developer", "React", "Next.js", "Portfolio"],
-  authors: [{ name: "Vishnu" }],
+    "Portfolio of Vishnu - a Full-Stack Developer specializing in React, Next.js, Node.js, and intelligent web applications.",
+  keywords: ["Full-Stack Developer", "React", "Next.js", "Node.js", "Portfolio"],
+  authors: [{ name: "Shree Vishnu A" }],
 };
 
 export default function RootLayout({ children }) {
