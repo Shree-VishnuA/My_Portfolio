@@ -7,10 +7,10 @@ import { House, Hammer, BriefcaseBusiness, GraduationCap, Phone } from "lucide-r
 
 const Navbar = () => {
   const navs = [
-    { title: "Home",      link: "#home",      icon: House },
-    { title: "Skills",    link: "#skills",    icon: Hammer },
-    { title: "Projects",  link: "#projects",  icon: BriefcaseBusiness },
-    { title: "Contact",   link: "#contact",   icon: Phone },
+    { title: "Home", link: "#home", icon: House },
+    { title: "Skills", link: "#skills", icon: Hammer },
+    { title: "Projects", link: "#projects", icon: BriefcaseBusiness },
+    { title: "Contact", link: "#contact", icon: Phone },
   ];
 
   const [isOpen, setIsOpen] = useState(false);
@@ -114,7 +114,7 @@ const Navbar = () => {
                   {isActive && (
                     <motion.div
                       layoutId="activeIndicator"
-                      className="absolute bottom-0 left-0 right-0 h-[2px] bg-cyan-600 dark:bg-cyan-400 rounded-full"
+                      className="absolute bottom-0 left-0 right-0 h-px bg-cyan-600 dark:bg-cyan-400 rounded-full"
                       transition={{ type: "spring", stiffness: 400, damping: 30 }}
                     />
                   )}
