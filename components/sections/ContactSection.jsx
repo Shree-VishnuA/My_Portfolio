@@ -56,19 +56,19 @@ function LiveClock() {
       let status = "";
 
       if (hour >= 0 && hour < 6) {
-        status = "Hopefully asleep... unless a bug won.";
+        status = "Either asleep or fighting the final boss: 'works on my machine'.";
       } else if (hour >= 6 && hour < 9) {
-        status = "Getting ready for classes and planning the day.";
+        status = "Getting ready for classes while mentally compiling today's to-do list.";
       } else if (hour >= 9 && hour < 13) {
-        status = "Probably in class or pretending not to debug during lectures.";
+        status = "Probably in class... or playing table tennis with my firends(if the table is free).";
       } else if (hour >= 13 && hour < 17) {
-        status = "Learning AI, coding, or working on assignments.";
+        status = "Learning AI, building stuff, breaking stuff, then pretending it was part of the plan.";
       } else if (hour >= 17 && hour < 20) {
-        status = "Building projects, fixing bugs, or playing a game of chess.";
+        status = "Coding, playing chess/carrom, or solving a LeetCode problem";
       } else if (hour >= 20 && hour < 23) {
-        status = "Most likely deep into side projects and chasing that 'one last feature'.";
+        status = "Grinding side projects while saying 'this is the last commit' for the fifth time.";
       } else {
-        status = "Late-night coding. Sleep can negotiate later.";
+        status = "Powered by caffeine, curiosity, and questionable sleep decisions.";
       }
 
       setTimeState({
@@ -195,7 +195,7 @@ export default function ContactSection() {
         </motion.div>
 
         {/* Bento Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 sm:gap-6 auto-rows-min md:auto-rows-[200px]">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 auto-rows-min md:auto-rows-[200px]">
 
           {/* 1. Large CTA Tile (spans 2 rows, 2 cols) */}
           <motion.a
@@ -205,7 +205,7 @@ export default function ContactSection() {
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
             whileHover={{ scale: 0.98 }}
-            className={`md:col-span-2 md:row-span-2 flex flex-col justify-between group p-8 sm:p-10 ${bentoClass} bg-linear-to-br from-cyan-300/10 to-cyan-700/10 dark:from-cyan-300/5 dark:to-cyan-500/5 hover:from-cyan-500/20 hover:to-cyan-600/20 border-cyan-500/20`}
+            className={`col-span-2 md:col-span-2 md:row-span-2 flex flex-col justify-between group p-8 sm:p-10 ${bentoClass} bg-linear-to-br from-cyan-300/10 to-cyan-700/10 dark:from-cyan-300/5 dark:to-cyan-500/5 hover:from-cyan-500/20 hover:to-cyan-600/20 border-cyan-500/20`}
           >
             <div className="absolute bottom-0 right-0 p-8 opacity-10 dark:opacity-20 group-hover:opacity-30 dark:group-hover:opacity-40 transition-all duration-500 group-hover:scale-110 group-hover:-rotate-6 transform origin-center">
               <Mail className="w-40 h-40 text-cyan-600 dark:text-cyan-400" />
@@ -236,7 +236,7 @@ export default function ContactSection() {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className={`flex flex-col items-center justify-center text-center group p-8 min-h-[200px] ${bentoClass}`}
+            className={`col-span-1 md:col-span-1 flex flex-col items-center justify-center text-center group p-6 sm:p-8 min-h-[160px] sm:min-h-[200px] ${bentoClass}`}
           >
             <div className="absolute inset-0 bg-gray-900 dark:bg-white scale-0 group-hover:scale-100 transition-transform duration-500 rounded-3xl origin-center ease-out" />
             <div className="relative z-10 flex flex-col items-center">
@@ -256,7 +256,7 @@ export default function ContactSection() {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className={`flex flex-col items-center justify-center text-center group p-8 min-h-[200px] ${bentoClass}`}
+            className={`col-span-1 md:col-span-1 flex flex-col items-center justify-center text-center group p-6 sm:p-8 min-h-[160px] sm:min-h-[200px] ${bentoClass}`}
           >
             <div className="absolute inset-0 bg-[#0A66C2] scale-0 group-hover:scale-100 transition-transform duration-500 rounded-3xl origin-center ease-out" />
             <div className="relative z-10 flex flex-col items-center">
@@ -273,7 +273,7 @@ export default function ContactSection() {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.3 }}
-            className={`md:col-span-2 p-8 sm:p-10 min-h-[200px] ${bentoClass}`}
+            className={`col-span-2 md:col-span-2 p-8 sm:p-10 min-h-[200px] ${bentoClass}`}
           >
             <LiveClock />
           </motion.div>
@@ -284,7 +284,7 @@ export default function ContactSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.4 }}
-            className={`md:col-span-4 p-8 sm:p-10 ${bentoClass} flex items-center justify-center`}
+            className={`col-span-2 md:col-span-4 p-8 sm:p-10 ${bentoClass} flex items-center justify-center`}
           >
             <ComplimentForm />
           </motion.div>

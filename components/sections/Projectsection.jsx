@@ -12,7 +12,7 @@ const projects = [
     id: 1,
     title: "PromptPilot",
     tagline: "An AI-powered tool to optimize and manage prompts for ChatGPT, Gemini, Claude, and more.",
-    tech: ["React", "Node.js", "Express.js", "MongoDB", "Tailwind CSS", "JWT", "Gemini API"],
+    tech: ["React", "Node.js", "Express.js", "MongoDB", "Gemini API"],
     github: "https://github.com/Shree-VishnuA/promptPilot.git",
     demo: "https://prompt-pilot-zeta.vercel.app/",
     accent: "from-cyan-400 to-violet-600",
@@ -25,7 +25,7 @@ const projects = [
     id: 2,
     title: "BlogNest",
     tagline: "A full-stack blogging platform where you can write, publish, and converse in the margins of every story.",
-    tech: ["Node.js", "Express.js", "MongoDB", "EJS", "Tailwind CSS", "Cloudinary", "JWT"],
+    tech: ["Node.js", "Express.js", "MongoDB", "EJS","Cloudinary"],
     github: "https://github.com/Shree-VishnuA/My_Blog_App.git",
     demo: "https://my-blog-nest.vercel.app/",
     accent: "from-orange-400 to-amber-600",
@@ -38,7 +38,7 @@ const projects = [
     id: 3,
     title: "Narada",
     tagline: "An agentic AI assistant with multi-step reasoning, tool calling, and persistent conversational memory.",
-    tech: ["React", "Node.js", "Express.js", "MongoDB", "Gemini API", "Agentic AI Concepts"],
+    tech: ["React", "Node.js", "Express.js", "MongoDB", "Gemini API", "Agentic AI"],
     github: "https://github.com/Shree-VishnuA/Narada-AI.git",
     accent: "from-emerald-400 to-teal-600",
     icon: BrainCircuit,
@@ -50,7 +50,7 @@ const projects = [
     id: 4,
     title: "ARISE",
     tagline: "A platform to preserve traditional Indian art forms by connecting local artists with art lovers and buyers.",
-    tech: ["React", "Node.js", "Next.js", "MongoDB", "Tailwind CSS", "Gemini API"],
+    tech: ["React", "Node.js", "Next.js", "MongoDB", "Gemini API"],
     github: "https://github.com/Shree-VishnuA/Arise-Codefury.git",
     demo: "https://arise-codefury.vercel.app/",
     accent: "from-purple-500 to-pink-600",
@@ -63,7 +63,7 @@ const projects = [
     id: 5,
     title: "MovieHunt",
     tagline: "A cinematic movie discovery app for browsing trending films, TV shows, and popular personalities.",
-    tech: ["React", "Tailwind CSS", "React Router", "TMDB API", "Axios"],
+    tech: ["React", "TMDB API"],
     github: "https://github.com/Shree-VishnuA/Movie-Explorer.git",
     demo: "https://shree-vishnua.github.io/Movie-Explorer/",
     accent: "from-red-500 to-rose-600",
@@ -76,7 +76,7 @@ const projects = [
     id: 6,
     title: "Weatherly",
     tagline: "A real-time weather app with live forecasts, air quality index, UV data, and dynamic location-based UI.",
-    tech: ["React", "Weather API", "Tailwind CSS","Rapid API"],
+    tech: ["React", "Weather API","Rapid API"],
     github: "https://github.com/Shree-VishnuA/Weatherly.git",
     demo: "https://shree-vishnua.github.io/Weatherly/",
     accent: "from-sky-400 to-indigo-600",
@@ -125,6 +125,17 @@ export default function Projectsection() {
               MOBILE PORTRAIT CARD  (hidden on lg+)
           ═══════════════════════════════════════════════════════════════ */}
           <div className="lg:hidden w-full h-svh flex flex-col items-center justify-center relative overflow-hidden">
+            
+            {/* Mobile Heading */}
+            <div className="absolute top-4 sm:top-8 left-0 w-full px-6 z-20 text-left">
+              <h2 className="text-4xl font-bold bg-clip-text text-transparent bg-linear-to-r from-gray-900 to-gray-500 dark:from-white dark:to-gray-400">
+                Projects
+              </h2>
+              <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">
+                Scroll to explore some of my best works.
+              </p>
+            </div>
+
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeIndex}
@@ -199,7 +210,7 @@ export default function Projectsection() {
                   </p>
 
                   {/* Tech pills */}
-                  <div className="flex flex-wrap gap-2">
+                  <div className="flex gap-2">
                     {active.tech.map((t) => (
                       <span
                         key={t}
@@ -289,9 +300,9 @@ export default function Projectsection() {
                       {active.tagline}
                     </p>
 
-                    {/* Tech Badges — top 4 only */}
+                    {/* Tech Badges */}
                     <div className="flex flex-wrap gap-2 mb-8">
-                      {active.tech.slice(0, 4).map((t) => (
+                      {active.tech.map((t) => (
                         <Badge
                           key={t}
                           variant="secondary"
