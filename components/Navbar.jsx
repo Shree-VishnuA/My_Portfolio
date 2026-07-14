@@ -83,11 +83,11 @@ const Navbar = () => {
     >
       {/* Top bar — always visible */}
       <div className="w-full flex justify-between items-center h-14 shrink-0">
-        <a href="#home" className="flex items-center gap-1.5 select-none" aria-label="Home">
+        <div className="flex items-center gap-1.5 select-none" aria-label="Home">
           <span className="w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm">
             SV
           </span>
-        </a>
+        </div>
 
         {/* Desktop nav links */}
         <nav>
