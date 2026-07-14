@@ -60,7 +60,7 @@ function LiveClock() {
       } else if (hour >= 6 && hour < 9) {
         status = "Getting ready for classes while mentally compiling today's to-do list.";
       } else if (hour >= 9 && hour < 13) {
-        status = "Probably in class... or playing table tennis with my firends(if the table is free).";
+        status = "Probably in class... or playing table tennis with my friends(if the table is free).";
       } else if (hour >= 13 && hour < 17) {
         status = "Learning AI, building stuff, breaking stuff, then pretending it was part of the plan.";
       } else if (hour >= 17 && hour < 20) {
