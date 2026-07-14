@@ -8,6 +8,7 @@ import {
   Send,
   Heart,
   ArrowRight,
+  Loader2,
 } from "lucide-react";
 
 // Inline SVG components
@@ -111,26 +112,43 @@ function ComplimentForm() {
   const [compliment, setCompliment] = useState("");
   const [status, setStatus] = useState("idle");
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!compliment.trim()) return;
-    setStatus("sending");
+const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    // Using Formspree or fake sending for demonstration
-    // If you have a Formspree ID, put it here:
-    // fetch("https://formspree.io/f/YOUR_FORM_ID", { ... })
-    setTimeout(() => {
+  if (!compliment.trim()) return;
+
+  setStatus("sending");
+
+  try {
+    const response = await fetch("https://formspree.io/f/xqeralke", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({
+        compliment,
+      }),
+    });
+
+    if (response.ok) {
       setStatus("success");
       setCompliment("");
-      setTimeout(() => setStatus("idle"), 3000);
-    }, 1000);
-  };
+    } else {
+      setStatus("error");
+    }
+  } catch (error) {
+    setStatus("error");
+  }
+
+  setTimeout(() => setStatus("idle"), 3000);
+};
 
   return (
     <div className="flex flex-col md:flex-row items-center justify-between w-full h-full gap-6">
       <div className="flex items-center gap-4">
-        <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-rose-500/20 to-orange-500/20 border border-rose-500/20 flex items-center justify-center flex-shrink-0 shadow-sm">
-          <Heart className="w-6 h-6 text-rose-500 fill-rose-500/20" />
+        <div className="w-12 h-12 rounded-2xl bg-linear-to-br from-cyan-500/20 to-cyan-500/20 border border-cyan-500/20 flex items-center justify-center shrink-0 shadow-sm">
+          <Heart className="w-6 h-6 text-cyan-500 fill-cyan-500/20" />
         </div>
         <div>
           <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-1">
@@ -141,26 +159,42 @@ function ComplimentForm() {
           </p>
         </div>
       </div>
-      <form onSubmit={handleSubmit} className="relative w-full md:w-96 flex-shrink-0">
+      <form onSubmit={handleSubmit} className="relative w-full md:w-96 shrink-0">
         <input
           type="text"
           value={compliment}
           onChange={(e) => setCompliment(e.target.value)}
           disabled={status !== "idle"}
           placeholder="You are awesome..."
-          className="w-full px-5 py-4 pr-14 rounded-2xl text-sm bg-white/50 dark:bg-black/20 border border-gray-200 dark:border-white/10 focus:outline-none focus:border-rose-400/60 focus:ring-4 focus:ring-rose-500/10 text-gray-900 dark:text-white placeholder:text-gray-400 transition-all duration-200 shadow-sm"
+          className="w-full px-5 py-4 pr-14 rounded-2xl text-sm bg-white/50 dark:bg-black/20 border border-gray-200 dark:border-white/10 focus:outline-none focus:border-cyan-400/60 focus:ring-4 focus:ring-cyan-500/10 text-gray-900 dark:text-white placeholder:text-gray-400 transition-all duration-200 shadow-sm"
         />
         <button
           type="submit"
           disabled={status !== "idle" || !compliment.trim()}
-          className="absolute right-2 top-1/2 -translate-y-1/2 p-2.5 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-xl hover:scale-105 active:scale-95 disabled:opacity-50 disabled:hover:scale-100 transition-all duration-200 shadow-md"
+          className="absolute right-2 top-1/2 -translate-y-1/2 p-2.5 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-xl hover:scale-105 active:scale-95 disabled:opacity-50 disabled:hover:scale-100 transition-all cursor-pointer duration-200 shadow-md"
         >
-          {status === "success" ? (
+          {status === "sending" ? (
+            <Loader2 className="w-4 h-4 animate-spin" />
+          ) : status === "success" ? (
             <Heart className="w-4 h-4 fill-current" />
           ) : (
             <Send className="w-4 h-4" />
           )}
         </button>
+
+        {/* Success Overlay */}
+        {status === "success" && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="absolute inset-0 flex items-center justify-center bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm rounded-2xl border border-cyan-500/50 shadow-sm z-10"
+          >
+            <span className="text-sm font-bold text-cyan-600 dark:text-cyan-400 flex items-center gap-2">
+              <Heart className="w-4 h-4 fill-current" />
+              Thank you for the compliment!
+            </span>
+          </motion.div>
+        )}
       </form>
     </div>
   );

@@ -85,7 +85,7 @@ export default function Homesection() {
 
             {/* Bio */}
             <p className="text-base md:text-lg text-gray-600 dark:text-gray-400 leading-relaxed max-w-lg mb-8">
-              I build intelligent web experiences — from pixel-perfect frontends to
+              I build intelligent web experiences - from pixel-perfect frontends to
               AI-powered backends. Passionate about crafting software that solves
               real problems.
             </p>
@@ -96,7 +96,7 @@ export default function Homesection() {
                 whileHover={{ scale: 1.04 }}
                 whileTap={{ scale: 0.96 }}
                 onClick={scrollToProjects}
-                className="group inline-flex items-center justify-center gap-2.5 px-7 py-3.5 border border-gray-200 dark:border-white/10 hover:border-cyan-500/50 dark:hover:border-cyan-400/50 text-gray-700 dark:text-gray-300 hover:text-cyan-600 dark:hover:text-cyan-400 rounded-xl font-semibold text-sm backdrop-blur-sm transition-all duration-300"
+                className="group cursor-pointer inline-flex items-center justify-center gap-2.5 px-7 py-3.5 border border-gray-200 dark:border-white/10 hover:border-cyan-500/50 dark:hover:border-cyan-400/50 text-gray-700 dark:text-gray-300 hover:text-cyan-600 dark:hover:text-cyan-400 rounded-xl font-semibold text-sm backdrop-blur-sm transition-all duration-300"
               >
                 View My Work
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
