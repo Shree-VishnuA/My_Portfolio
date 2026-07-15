@@ -108,14 +108,49 @@ function LiveClock() {
 }
 
 // Compliment Form Component
+const COOLDOWN_SECONDS = 60;
+const MAX_SUBMISSIONS = 5;
+const SESSION_KEY = "compliment_count";
+const COOLDOWN_KEY = "compliment_last_sent";
+
 function ComplimentForm() {
   const [compliment, setCompliment] = useState("");
   const [status, setStatus] = useState("idle");
+  const [honeypot, setHoneypot] = useState(""); // hidden field — bots fill this
+  const [cooldown, setCooldown] = useState(0); // seconds remaining in cooldown
+
+  // Tick down the cooldown every second
+  useEffect(() => {
+    if (cooldown <= 0) return;
+    const t = setTimeout(() => setCooldown((c) => c - 1), 1000);
+    return () => clearTimeout(t);
+  }, [cooldown]);
+
+  // Restore cooldown on mount (page refresh mid-cooldown)
+  useEffect(() => {
+    const lastSent = parseInt(sessionStorage.getItem(COOLDOWN_KEY) || "0", 10);
+    const elapsed = Math.floor((Date.now() - lastSent) / 1000);
+    const remaining = COOLDOWN_SECONDS - elapsed;
+    if (remaining > 0) setCooldown(remaining);
+  }, []);
 
 const handleSubmit = async (e) => {
   e.preventDefault();
 
   if (!compliment.trim()) return;
+
+  // 🍯 Honeypot check — bots fill the hidden field, humans don't
+  if (honeypot) return;
+
+  // ⏱ Cooldown check
+  if (cooldown > 0) return;
+
+  // 🔢 Max submissions per session
+  const count = parseInt(sessionStorage.getItem(SESSION_KEY) || "0", 10);
+  if (count >= MAX_SUBMISSIONS) {
+    setStatus("limit");
+    return;
+  }
 
   setStatus("sending");
 
@@ -134,6 +169,9 @@ const handleSubmit = async (e) => {
     if (response.ok) {
       setStatus("success");
       setCompliment("");
+      sessionStorage.setItem(SESSION_KEY, String(count + 1));
+      sessionStorage.setItem(COOLDOWN_KEY, String(Date.now()));
+      setCooldown(COOLDOWN_SECONDS);
     } else {
       setStatus("error");
     }
@@ -141,7 +179,7 @@ const handleSubmit = async (e) => {
     setStatus("error");
   }
 
-  setTimeout(() => setStatus("idle"), 3000);
+  setTimeout(() => setStatus((s) => (s !== "success" ? "idle" : s)), 3000);
 };
 
   return (
@@ -160,17 +198,30 @@ const handleSubmit = async (e) => {
         </div>
       </div>
       <form onSubmit={handleSubmit} className="relative w-full md:w-96 shrink-0">
+        {/* 🍯 Honeypot — hidden from humans, bots fill it */}
+        <input
+          type="text"
+          name="_gotcha"
+          value={honeypot}
+          onChange={(e) => setHoneypot(e.target.value)}
+          tabIndex={-1}
+          autoComplete="off"
+          style={{ display: "none" }}
+          aria-hidden="true"
+        />
+
         <input
           type="text"
           value={compliment}
           onChange={(e) => setCompliment(e.target.value)}
-          disabled={status !== "idle"}
+          disabled={status !== "idle" || cooldown > 0 || status === "limit"}
           placeholder="You are awesome..."
+          maxLength={200}
           className="w-full px-5 py-4 pr-14 rounded-2xl text-sm bg-white/50 dark:bg-black/20 border border-gray-200 dark:border-white/10 focus:outline-none focus:border-cyan-400/60 focus:ring-4 focus:ring-cyan-500/10 text-gray-900 dark:text-white placeholder:text-gray-400 transition-all duration-200 shadow-sm"
         />
         <button
           type="submit"
-          disabled={status !== "idle" || !compliment.trim()}
+          disabled={status !== "idle" || !compliment.trim() || cooldown > 0 || status === "limit"}
           className="absolute right-2 top-1/2 -translate-y-1/2 p-2.5 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-xl hover:scale-105 active:scale-95 disabled:opacity-50 disabled:hover:scale-100 transition-all cursor-pointer duration-200 shadow-md"
         >
           {status === "sending" ? (
@@ -181,6 +232,20 @@ const handleSubmit = async (e) => {
             <Send className="w-4 h-4" />
           )}
         </button>
+
+        {/* ⏱ Cooldown badge */}
+        {cooldown > 0 && status !== "success" && (
+          <p className="mt-2 text-xs text-gray-400 dark:text-gray-500 text-center">
+            Wait <span className="font-semibold text-cyan-500">{cooldown}s</span> before sending another.
+          </p>
+        )}
+
+        {/* 🚫 Session limit message */}
+        {status === "limit" && (
+          <p className="mt-2 text-xs text-red-400 text-center font-medium">
+            You've sent the maximum compliments for this session. Thank you! 🙏
+          </p>
+        )}
 
         {/* Success Overlay */}
         {status === "success" && (

@@ -53,7 +53,7 @@ export default function ParticleField() {
     let w = (canvas.width = window.innerWidth);
     let h = (canvas.height = window.innerHeight);
 
-    const darkColors = ["#0A0A0B", "#141415", "#1A1A1C", "#202023"];
+    const darkColors = ["#000000","#050506","#09090A","#0D0D0E"];
     const lightColors = ["#FFFFFF","#FCFCFD","#FAFAFB","#F9F9FA","#F8F9FA","#F7F8FA","#F4F6F9","#F2F5F8",];
     const getColors = () => (theme === "dark" ? darkColors : lightColors);
 
