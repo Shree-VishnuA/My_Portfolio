@@ -4,8 +4,17 @@ import React, { useRef, useState, useEffect } from "react";
 import { motion, useScroll, AnimatePresence } from "framer-motion";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { ExternalLink, GitBranch, Sparkles, BookOpen, BrainCircuit, Map, CloudSun, Film } from "lucide-react";
+import { ExternalLink, Sparkles, BookOpen, BrainCircuit, Map, CloudSun, Film } from "lucide-react";
 import Image from "next/image";
+
+// Inline SVG component
+function GithubIcon({ className }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="currentColor" stroke="none">
+      <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.6.113.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z" />
+    </svg>
+  );
+}
 
 const projects = [
   {
@@ -119,19 +128,19 @@ export default function Projectsection() {
         className="relative w-full"
       >
         {/* Sticky Viewport */}
-        <div className="sticky top-10 w-full flex items-center overflow-hidden min-h-screen">
+        <div className="sticky top-0 w-full flex items-center overflow-hidden min-h-screen">
 
           {/* ═══════════════════════════════════════════════════════════════
               MOBILE PORTRAIT CARD  (hidden on lg+)
           ═══════════════════════════════════════════════════════════════ */}
-          <div className="lg:hidden w-full h-svh flex flex-col items-center justify-center relative overflow-hidden">
+          <div className="lg:hidden w-full h-svh flex flex-col items-center justify-center relative overflow-hidden pt-20 sm:pt-24 pb-8 px-4">
             
             {/* Mobile Heading */}
-            <div className="absolute top-4 sm:top-8 left-0 w-full px-6 z-20 text-left">
-              <h2 className="text-4xl font-bold bg-clip-text text-transparent bg-linear-to-r from-gray-900 to-gray-500 dark:from-white dark:to-gray-400">
+            <div className="absolute top-20 sm:top-24 left-0 w-full px-6 z-20 text-left pointer-events-none">
+              <h2 className="text-3xl sm:text-4xl font-bold bg-clip-text text-transparent bg-linear-to-r from-gray-900 to-gray-500 dark:from-white dark:to-gray-400">
                 Projects
               </h2>
-              <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">
+              <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-1">
                 Scroll to explore some of my best works.
               </p>
             </div>
@@ -143,11 +152,11 @@ export default function Projectsection() {
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: -20, scale: 0.97 }}
                 transition={{ duration: 0.4, ease: "easeOut" }}
-                className="w-full max-w-sm mx-auto rounded-2xl border border-zinc-400/20 overflow-hidden shadow-2xl flex flex-col bg-zinc-950"
-                style={{ maxHeight: "88svh" }}
+                className="w-full max-w-sm mx-auto rounded-2xl border border-zinc-400/20 overflow-hidden shadow-2xl flex flex-col bg-zinc-950 mt-16 sm:mt-20"
+                style={{ maxHeight: "calc(100svh - 175px)" }}
               >
                 {/* ── Image area ── */}
-                <div className={`relative w-full bg-linear-to-br ${active.color} shrink-0`} style={{ height: '260px' }}>
+                <div className={`relative w-full bg-linear-to-br ${active.color} shrink-0 h-44 sm:h-52`}>
                   {active.image ? (
                     <Image
                       src={active.image}
@@ -176,7 +185,7 @@ export default function Projectsection() {
                       rel="noopener noreferrer"
                       className="w-11 h-11 rounded-full bg-black/60 backdrop-blur-sm border border-white/15 flex items-center justify-center text-white hover:bg-black/80 transition-all duration-200"
                     >
-                      <GitBranch className="w-4 h-4" />
+                      <GithubIcon className="w-4 h-4" />
                     </a>
                     {active.demo && (
                       <a
@@ -192,7 +201,7 @@ export default function Projectsection() {
                 </div>
 
                 {/* ── Info panel ── */}
-                <div className="bg-zinc-950 px-5 py-5 flex flex-col gap-3 flex-1">
+                <div className="bg-zinc-950 px-4 sm:px-5 py-4 sm:py-5 flex flex-col gap-2 sm:gap-3 flex-1 overflow-y-auto">
                   {active.badge && (
                     <span className="text-[9px] tracking-widest font-bold text-orange-400 bg-orange-500/10 px-2.5 py-0.5 rounded-full uppercase w-fit">
                       {active.badge}
@@ -200,21 +209,21 @@ export default function Projectsection() {
                   )}
 
                   {/* Title */}
-                  <h3 className="text-2xl font-bold text-white leading-tight">
+                  <h3 className="text-xl sm:text-2xl font-bold text-white leading-tight">
                     {active.title}
                   </h3>
 
                   {/* Description */}
-                  <p className="text-sm text-gray-300 leading-relaxed">
+                  <p className="text-xs sm:text-sm text-gray-300 leading-relaxed">
                     {active.tagline}
                   </p>
 
                   {/* Tech pills */}
-                  <div className="flex gap-2">
+                  <div className="flex flex-wrap gap-1.5 my-1">
                     {active.tech.map((t) => (
                       <span
                         key={t}
-                        className="text-[11px] font-medium bg-white/8 border border-white/12 text-gray-200 rounded-full px-3 py-1"
+                        className="text-[10px] sm:text-[11px] font-medium bg-white/8 border border-white/12 text-gray-200 rounded-full px-2.5 py-0.5 shrink-0"
                       >
                         {t}
                       </span>
@@ -229,7 +238,7 @@ export default function Projectsection() {
                       rel="noopener noreferrer"
                       className="w-11 h-11 rounded-xl bg-white/8 border border-white/10 flex items-center justify-center text-gray-300 hover:text-white hover:bg-white/15 transition-all duration-200"
                     >
-                      <GitBranch className="w-4 h-4" />
+                      <GithubIcon className="w-4 h-4" />
                     </a>
                     {active.demo && (
                       <a
@@ -320,7 +329,8 @@ export default function Projectsection() {
                         size="sm"
                         className="rounded-full bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white text-xs font-semibold px-6 h-9 shadow-none"
                       >
-                        <a href={active.github} target="_blank" rel="noopener noreferrer">
+                        <a href={active.github} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
+                          <GithubIcon className="w-3.5 h-3.5" />
                           Source
                         </a>
                       </Button>
