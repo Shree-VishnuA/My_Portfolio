@@ -170,3 +170,9 @@
 ::-webkit-scrollbar-corner {
   background: transparent;
 }
+
+@media (pointer: fine) {
+  * {
+    cursor: none !important;
+  }
+}

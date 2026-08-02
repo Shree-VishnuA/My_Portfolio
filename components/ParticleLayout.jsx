@@ -60,7 +60,7 @@ const lightColors = ["#FFFFFF","#FCFCFD","#FAFAFB","#F9F9FA","#F8F9FA","#F7F8FA"
     const getBorderColor = () =>
       theme === "dark"
   ? "rgba(0, 0, 0, 1)"
-  : "rgba(0, 0, 0, 0.06)";
+  : "rgba(0, 0, 0, 0.08)";
 
     const createPolygon = (size) => {
       const sides = Math.floor(Math.random() * 3) + 5;

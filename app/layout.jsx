@@ -4,6 +4,7 @@ import ParticleField from "@/components/ParticleLayout";
 import Navbar from "@/components/Navbar";
 import { ThemeProvider } from "next-themes";
 import PageReveal from "@/components/PageReveal";
+import CustomCursor from "@/components/CustomCursor";
 
 const poppins = Poppins({
   variable: "--font-sans",
@@ -23,9 +24,10 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${poppins.variable} font-sans antialiased relative overflow-x-hidden select-none`}
+        className={`${poppins.variable} font-sans antialiased relative overflow-x-hidden select-none cursor-none`}
       >
         <ThemeProvider attribute="class" defaultTheme="dark">
+          <CustomCursor />
           {/* Background Layer */}
           <div className="fixed inset-0 -z-10 opacity-60 pointer-events-none">
             <ParticleField />
